@@ -1,12 +1,24 @@
-$def with (todos, user, isqa)
+$def with (todos, user, isqa, debug)
 <div id="todoList">
 $code:
-    def devcheck(user,currentuser):
-        if user != currentuser:
-            return "disabled"
-    def qacheck():
+    def devcheck(todouser,developerstatus):
+    	if debug == 1:
+    		return ""
+        result = ""
+        if user != todouser:
+            result += "disabled"
+        if developerstatus == 0:
+            result += " checked"
+        return result
+    def qacheck(qastatus):
+    	if debug == 1:
+    		return ""
+        result = ""
         if not isqa:
-            return "disabled"
+            result += "disabled"
+        if qastatus == 0:
+            result += " checked"
+        return result
         
 <table class="table" id="todoListTable">
     <tr>
@@ -24,19 +36,12 @@ $for todo in todos:
             <td>$todo.user</td>
         <td>
             <form action="/developer_done/$todo.id" method="post">
-                $if todo.developerstatus == 0:
-                    <input type="checkbox" name="status" $devcheck(todo.user,user) checked/>
-                $else:
-                    <input type="checkbox" name="status" $devcheck(todo.user,user)/>
+                <input type="checkbox" name="status" $devcheck(todo.user,todo.developerstatus)/>
             </form>
         </td>
         <td class="inp-check">
             <form action="/qa_done/$todo.id" method="post">
-                $if todo.qastatus == 0:
-                    <input type="checkbox" name="status" $qacheck() checked/>
-                $else:
-                    <input type="checkbox" name="status" $qacheck()/>
-                
+                <input type="checkbox" name="status" $qacheck(todo.qastatus)/>
             </form>
             $if todo.user == user:
                 <form action="/delete/$todo.id" method="post" class="hide"></form>
