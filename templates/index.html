@@ -1,0 +1,92 @@
+$def with (todos, user, isqa)
+<div id="todoList">
+$code:
+    def devcheck(user,currentuser):
+        if user != currentuser:
+            return "disabled"
+    def qacheck():
+        if not isqa:
+            return "disabled"
+        
+<table class="table" id="todoListTable">
+    <tr>
+        <th>User Story</th>
+        <th width="8%">Owner</th>
+        <th width="11%">Dev Test</th>
+        <th width="10%">QA Test</th>
+    </tr>
+$for todo in todos:
+    <tr class="data">
+        <td>$todo.title</td>
+        $if todo.qastatus == 0:
+            <td><s>$todo.user</s></td>
+        $else: 
+            <td>$todo.user</td>
+        <td>
+            <form action="/developer_done/$todo.id" method="post">
+                $if todo.developerstatus == 0:
+                    <input type="checkbox" name="status" $devcheck(todo.user,user) checked/>
+                $else:
+                    <input type="checkbox" name="status" $devcheck(todo.user,user)/>
+            </form>
+        </td>
+        <td class="inp-check">
+            <form action="/qa_done/$todo.id" method="post">
+                $if todo.qastatus == 0:
+                    <input type="checkbox" name="status" $qacheck() checked/>
+                $else:
+                    <input type="checkbox" name="status" $qacheck()/>
+                
+            </form>
+            $if todo.user == user:
+                <form action="/delete/$todo.id" method="post" class="hide"></form>
+                <div class="delete hide"></div>
+        </td>
+    </tr>    
+</table>  
+<form action="" method="post">
+<table>
+    <tbody>
+	<tr>
+		<th>
+			<label for="title">$user need to:</label>
+		</th>
+		<td>
+			<textarea id="title" name="title" class="todoarea"></textarea>
+		</td>
+	</tr>
+    <tr>
+		<th>
+			<label for="Add todo"></label>
+		</th>
+		<td>
+			<button id="Add todo" name="Add todo" class="btn btn-success">Add todo</button>
+		</td>
+	</tr>
+</tbody>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+    !function(){
+        var $$ = jQuery;
+        var todoListTableDom = document.getElementById('todoListTable');
+        var inputDomArr = todoListTableDom.getElementsByTagName('input');
+        for(var i = 0,len = inputDomArr.length; i < len; i++){
+            inputDomArr[i].onclick = function(){
+                this.parentNode.submit();
+            }
+        }
+        $$('tr.data').hover(
+            function(){
+                $$(this).find('div.delete').removeClass('hide');
+            },
+            function(){
+                $$(this).find('div.delete').addClass('hide');
+            }
+        );
+        $$('div.delete').click(function(){
+            $$(this).prev().submit();
+        });
+    }()
+</script>

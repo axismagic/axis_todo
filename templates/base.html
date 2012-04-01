@@ -1,0 +1,49 @@
+$def with (page)
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Todo list</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css"/>
+    
+    <style type="text/css">
+        #todoList{
+            margin:10px auto;
+            width:800px;
+        }
+        
+        .todoarea{
+            width:400px;
+            height:100px;
+        }
+        div.delete{
+            position:absolute;
+            top:8px;
+            left:45px;
+            width:20px;
+            height:20px;
+            background:url('/static/images/destroy.png') no-repeat;
+        }
+        div.delete:hover{
+            position:absolute;
+            top:8px;
+            left:45px;
+            width:20px;
+            height:20px;
+            background:url('/static/images/destroy.png') no-repeat 0 -20px;
+            cursor:pointer;
+        }
+        .inp-check{
+            position:relative;
+        }
+    </style>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+
+$:page
+
+</body>
+</html>
