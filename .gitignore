@@ -28,12 +28,6 @@ nosetests.xml
 .mr.developer.cfg
 
 #axis specific
-<<<<<<< HEAD
 *.exe
 *.db
 *.sql
-=======
-.exe
-.db
-.sql
->>>>>>> 8bd21d7344ba22daec4922bb1307ef74e4101a0e
