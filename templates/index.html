@@ -2,22 +2,22 @@ $def with (todos, user, isqa, debug)
 <div id="todoList">
 $code:
     def devcheck(todouser,developerstatus):
-    	if debug == 1:
-    		return ""
         result = ""
-        if user != todouser:
-            result += "disabled"
         if developerstatus == 0:
             result += " checked"
+        if debug == 1:
+            return result
+        if user != todouser:
+            result += " disabled"
         return result
     def qacheck(qastatus):
-    	if debug == 1:
-    		return ""
         result = ""
-        if not isqa:
-            result += "disabled"
         if qastatus == 0:
             result += " checked"
+        if debug == 1:
+            return result
+        if not isqa:
+            result += " disabled"
         return result
         
 <table class="table" id="todoListTable">
@@ -52,22 +52,22 @@ $for todo in todos:
 <form action="" method="post">
 <table>
     <tbody>
-	<tr>
-		<th>
-			<label for="title">$user need to:</label>
-		</th>
-		<td>
-			<textarea id="title" name="title" class="todoarea"></textarea>
-		</td>
-	</tr>
     <tr>
-		<th>
-			<label for="Add todo"></label>
-		</th>
-		<td>
-			<button id="Add todo" name="Add todo" class="btn btn-success">Add todo</button>
-		</td>
-	</tr>
+        <th>
+            <label for="title">$user need to:</label>
+        </th>
+        <td>
+            <textarea id="title" name="title" class="todoarea"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="Add todo"></label>
+        </th>
+        <td>
+            <button id="Add todo" name="Add todo" class="btn btn-success">Add todo</button>
+        </td>
+    </tr>
 </tbody>
 </table>
 </form>
